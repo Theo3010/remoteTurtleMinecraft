@@ -1,39 +1,24 @@
-# MCturtle
+# Remote Turtle Minecraft
 
-MCturtle is a JavaScript/Node.js library for controlling Minecraft turtles (inspired by ComputerCraft) via scripts.
+This project aims to create a web-based interface for remote control of Minecraft turtles.
 
-## Features
+## Project Goals
+- Build a webpage to control turtles remotely.
+- Add pre-coded tasks such as copy, paste, query, and others that turtles can execute.
 
-- Program Minecraft turtles using JavaScript
-- Easy-to-use API for movement, digging, and placing blocks
-- Event-driven scripting
+## Features (Planned)
+- Web interface for sending commands to turtles
+- Task management: add, remove, and execute tasks
+- Pre-coded tasks for common turtle operations
 
-## Installation
-
-```bash
-npm install mcturtle
-```
-
-## Usage
-
-```js
-const mcturtle = require('mcturtle');
-
-const turtle = new mcturtle.Turtle();
-
-turtle.forward();
-turtle.dig();
-turtle.place();
-```
-
-## Documentation
-
-See the [Wiki](./docs) for full API documentation and examples.
+## Getting Started
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Start the server with `npm run dev`
 
 ## Contributing
+Feel free to open issues or submit pull requests for new features or bug fixes.
 
-Pull requests are welcome! For major changes, please open an issue first.
+---
 
-## License
-
-[MIT](LICENSE)
+*This project is under active development.*
