@@ -1,8 +1,10 @@
 import WebSocket, { WebSocketServer } from 'ws';
 import { standardTurtle as Turtle } from './standardTurtle.js';
+import Turtles from './Turtles.js';
 const wss = new WebSocketServer({ port: 8080 });
 
-export let Turtles: Array<Turtle> = [];
+export let turtles = new Turtles()
+
 let wsToTurtle = new Map<WebSocket, Turtle>();
 let nextId = 1;
 
@@ -13,32 +15,32 @@ export function webSocket() {
         
         const turtle = new Turtle(nextId++, ws);
         wsToTurtle.set(ws, turtle);
-        Turtles.push(turtle);
+        turtles.add(turtle);
     
         ws.on('message', function incoming(message) {
             const turtle = wsToTurtle.get(ws);
 
             console.log('received: %s', message);
-            turtle.setReturnValue(message.toString());
+            turtle.update(message.toString())
         });
     
         ws.on('close', function() {
             const turtle = wsToTurtle.get(ws);
 
             console.log('Client disconnected');
-            Turtles = Turtles.filter(t => t.id !== turtle.id);
+            turtles.remove(turtle)
             wsToTurtle.delete(ws);
         });
     });
 }
 
-export function sendMessage(message: string, arg: number = 0, turtleid: number = 0) {
+export function sendMessage(message: string, arg: number = 0, turtleid: number = 1) {
     // message = `return ${message}(${arg});`;
     message = `return ${message};`;
-    const turtle = Turtles.find(t => t.id === turtleid) || Turtles[0];
+    const turtle = turtles.find(t => t.id === turtleid);
     if (turtle) {
         turtle.ws.send(message);
     } else {
-        console.log("No turtles connected");
+        console.log(`No such turtle with id: ${turtleid}`);
     }
 }

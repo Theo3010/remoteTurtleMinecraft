@@ -1,6 +1,7 @@
 import WebSocket from "ws";
+import { eventListener } from "./eventListenerAbstract.js";
 
-export interface Turtle {
+export default abstract class Turtle extends eventListener {
     id: number;
     name: string;
     position: {
@@ -15,6 +16,13 @@ export interface Turtle {
         item: string;
         count: number;
     }>;
-    returnValue?: string;
     ws: WebSocket;
+
+    update(update: string): void {
+        super.update(update)
+    }
+
+    getName(): string {
+        return this.name
+    }
 };
